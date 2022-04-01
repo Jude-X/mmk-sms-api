@@ -20,7 +20,7 @@ export const outboundService = async (body: any): Promise<boolean> => {
 
   //Prevent Over 50 requests from a particular from
   let count = parseInt(await cacheClient.getKey(from)) || 0;
-  console.log(count);
+  
   if (count > 50) {
     throw new Error(`limit reached for from ${from}`);
   } else if (!count) {
