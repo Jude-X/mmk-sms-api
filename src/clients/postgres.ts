@@ -44,6 +44,7 @@ export class PgService implements iDBService {
 
       return result.rows;
     } catch (error) {
+      console.log(error)
       console.error("Error while executing query");
     }
   }
