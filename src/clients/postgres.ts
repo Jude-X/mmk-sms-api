@@ -16,6 +16,7 @@ export class PgService implements iDBService {
       max: 20,
       idleTimeoutMillis: 0,
       connectionTimeoutMillis: 2000,
+      ssl: true
     });
 
     if (this.pgPool) console.log("✅ PostgresDB connection is ready");
