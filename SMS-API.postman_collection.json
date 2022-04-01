@@ -1,0 +1,1119 @@
+{
+	"info": {
+		"_postman_id": "dc40fade-d321-4552-808a-60322bf32f4a",
+		"name": "SMS-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "InBound",
+			"item": [
+				{
+					"name": "No Authorization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error of Unauthorized\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"Unauthorized\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{sms-api-url}}/inbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"inbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Method",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/inbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"inbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Incorrect Authorization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error of Unauthorized\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"Unauthorized\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "judex",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{sms-api-url}}/inbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"inbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No Body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error of from is missing\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"from is missing\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{sms-api-url}}/inbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"inbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Body (to more than 16 characters)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error of to is invalid\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"to is invalid\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"4924195509198\",\r\n    \"to\": \"44122445954888889\",\r\n    \"text\": \"STOP\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/inbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"inbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Body (from more than 16 characters)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error from to is invalid\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"from is invalid\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"4924195509198149429\",\r\n    \"to\": \"441224459548\",\r\n    \"text\": \"STOP\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/inbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"inbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Body (text more than 120 characters)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error text to is invalid\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"text is invalid\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"4924195509198\",\r\n    \"to\": \"441224459548\",\r\n    \"text\": \"I am Jude, I am just trying to exceed this limit and be sure it throws the correct error, so I got to make this text really long. Here goes!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/inbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"inbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error to parameter not found\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"to parameter not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"4924195509198\",\r\n    \"to\": \"441224459548\",\r\n    \"text\": \"STOP\\n\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/inbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"inbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Successful Inbound",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have message inbound sms ok\", function () {\r",
+									"    pm.expect(jsonData.message).to.be.eql(\"inbound sms ok\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"4924195509198\",\r\n    \"to\": \"441224459508\",\r\n    \"text\": \"STOP\\n\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/inbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"inbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Outbound",
+			"item": [
+				{
+					"name": "Invalid Method",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/inbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"inbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No Authorization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error of Unauthorized\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"Unauthorized\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{sms-api-url}}/outbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"outbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Incorrect Authorization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error of Unauthorized\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"Unauthorized\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "judex",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{sms-api-url}}/inbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"inbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No Body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error of from is missing\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"from is missing\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{sms-api-url}}/inbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"inbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Body (to more than 16 characters)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error of to is invalid\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"to is invalid\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"4924195509198\",\r\n    \"to\": \"44122445954888889\",\r\n    \"text\": \"STOP\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/outbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"outbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Body (from more than 16 characters)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error from to is invalid\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"from is invalid\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"4924195509198149429\",\r\n    \"to\": \"441224459548\",\r\n    \"text\": \"STOP\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/outbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"outbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Body (text more than 120 characters)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error text to is invalid\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"text is invalid\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"4924195509198\",\r\n    \"to\": \"441224459548\",\r\n    \"text\": \"I am Jude, I am just trying to exceed this limit and be sure it throws the correct error, so I got to make this text really long. Here goes!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/outbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"outbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "From Parameter Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error from parameter not found\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"from parameter not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"4924195509198156\",\r\n    \"to\": \"441224459508\",\r\n    \"text\": \"STOP\\n\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/outbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"outbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blocked Outbound",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error from to is invalid\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"from is invalid\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"4924195509198\",\r\n    \"to\": \"441224459508\",\r\n    \"text\": \"STOP\\n\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/outbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"outbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong From Number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have error to from parameter not found\", function () {\r",
+									"    pm.expect(jsonData.error).to.be.eql(\"from parameter not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"4924195509198012\",\r\n    \"to\": \"441224459548\",\r\n    \"text\": \"STOP\\n\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/outbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"outbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Successful Outbound",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should have message of outbound sms ok\", function () {\r",
+									"    pm.expect(jsonData.message).to.be.eql(\"outbound sms ok\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "azr1",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "20S0KPNOIM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"4924195509198\",\r\n    \"to\": \"441224459548\",\r\n    \"text\": \"STOP\\n\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{sms-api-url}}/outbound/sms",
+							"host": [
+								"{{sms-api-url}}"
+							],
+							"path": [
+								"outbound",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
